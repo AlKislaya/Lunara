@@ -41,3 +41,10 @@ struct GridTextDivider: View {
         }
     }
 }
+
+#Preview {
+    ZStack {
+        BackgroundPrimaryViolet()
+        GridTextDivider(text: "Text")
+    }
+}
