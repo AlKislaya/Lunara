@@ -8,18 +8,23 @@
 import SwiftUI
 
 struct BackgroundPrimaryViolet : View {
-    let gradientStops = [Gradient.Stop(color: .brandPrimaryViolet1, location: 0.1),
-                         Gradient.Stop(color: .brandPrimaryViolet2, location: 0.4),
+    let gradientStops = [Gradient.Stop(color: .brandPrimaryViolet1, location: 0),
+                         Gradient.Stop(color: .brandPrimaryViolet2, location: 0.5),
                          Gradient.Stop(color: .brandPrimaryViolet3, location: 1)]
     
     var body: some View {
-        Rectangle()
-            .fill(.radialGradient(
-                Gradient(stops: gradientStops),
-                center: .top,
-                startRadius: 0,
-                endRadius: 800)) //dynamic end radius?
-            .ignoresSafeArea()
+        ZStack {
+            Rectangle()
+                .fill(.brandPrimaryViolet3)
+            Rectangle()
+                .fill(.ellipticalGradient(
+                        stops: gradientStops,
+                        center: .top,
+                        startRadiusFraction: 0,
+                        endRadiusFraction: 1))
+                .opacity(0.5)
+        }
+        .ignoresSafeArea()
     }
 }
 
