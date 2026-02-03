@@ -12,12 +12,13 @@ struct HoroscopeTabView: View {
     
     var body: some View {
         ScrollView {
+            DatePickerView()
             Grid {
                 GridTextDivider(text: "Personal")
                 
                 GridRow {
                     Spacer()
-                    ZodiacSignGridItemView(sign: .taurus) //replace with account sign
+                    ZodiacSignGridItemView(sign: .virgo) //replace with account sign
                 }
                 
                 GridTextDivider(text: "Select sign")
