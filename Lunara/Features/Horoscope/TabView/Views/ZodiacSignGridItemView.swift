@@ -12,7 +12,7 @@ struct ZodiacSignGridItemView : View {
     
     var body: some View {
         ZStack {
-            BlackRoundedRectangle(cornerRadius: AppCornerRadius.medium)
+            OpaqueRoundedRectangle(color: .black)
             
             VStack(spacing: 8) {
                 Image(sign.imageName)
