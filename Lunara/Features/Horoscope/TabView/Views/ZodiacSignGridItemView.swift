@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ZodiacSignGridItemView : View {
-    var sign: ZodiacSignGridItem
+    var sign: ZodiacSign
     
     var body: some View {
         ZStack {

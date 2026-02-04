@@ -1,5 +1,5 @@
 //
-//  ZodiacSignGridItem.swift
+//  ZodiacSign.swift
 //  Lunara
 //
 //  Created by Alexandra on 1.02.26.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum ZodiacSignGridItem: String, CaseIterable, Identifiable {
+enum ZodiacSign: String, CaseIterable, Identifiable {
     case aries,
          taurus,
          gemini,
@@ -22,7 +22,9 @@ enum ZodiacSignGridItem: String, CaseIterable, Identifiable {
          pisces
 
     var id: String { rawValue }
+}
 
+extension ZodiacSign {
     var title: String {
         rawValue.capitalized
     }

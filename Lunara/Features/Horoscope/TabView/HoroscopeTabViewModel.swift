@@ -6,7 +6,7 @@
 //
 
 final class HoroscopeTabViewModel {
-    let zodiacSignsRows: [[ZodiacSignGridItem]] = [
+    let zodiacSignsRows: [[ZodiacSign]] = [
         [.aries, .taurus, .gemini],
         [.cancer, .leo, .virgo],
         [.libra, .scorpio, .sagittarius],
