@@ -30,7 +30,7 @@ struct HoroscopeTabView: View {
                         }
                     }
                 }
-            }.padding()
+            }.padding(.horizontal)
         }
     }
 }
