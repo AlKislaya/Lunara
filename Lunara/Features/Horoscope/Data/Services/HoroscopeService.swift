@@ -7,37 +7,8 @@
 
 import Foundation
 
-enum HoroscopeError: LocalizedError {
-    case invalidURL(endPoint: String)
-    case serverError(description: String, code: Int)
-    case jsonEncodingError
-    
-    var errorDescription: String? {
-        switch self {
-        case .invalidURL(let endPoint):
-            return "Cannot form url for endpoint: \(endPoint)"
-        case .serverError(let description, _):
-            return description
-        case .jsonEncodingError:
-            return "json encoding error"
-        }
-    }
-    
-    var code: Int {
-           switch self {
-           case .invalidURL(endPoint: let endPoint):
-               return 400
-               
-           case .serverError(_, let code):
-               return code
-               
-           case .jsonEncodingError:
-               return 1202
-           }
-       }
-}
-
 class HoroscopeService {
+    
     public func fetchHoroscope(for sign: ZodiacSign, date: Date) async throws -> HoroscopeData? {
         let url = try formHoroscopeForSignURL(sign: sign.rawValue, date: date)
         
@@ -59,7 +30,7 @@ class HoroscopeService {
         var request = URLRequest(url: url)
         request.setValue(HoroscopeService.apiKey, forHTTPHeaderField: HTTPData.Headers.Keys.xApiKey)
         request.setValue(HTTPData.Headers.Values.contentTypeJson, forHTTPHeaderField: HTTPData.Headers.Keys.contentType)
-        request.httpMethod = "POST"
+        request.httpMethod = HTTPMethod.post
         request.httpBody = try encodePersonalHoroscopePayloadToJson(birthDate: birthDate, city: city, date: date)
         
         let (data, response) = try await URLSession.shared.data(for: request)
@@ -122,40 +93,6 @@ extension HoroscopeService {
         formatter.dateFormat = HoroscopeService.dateFormat
         return formatter.string(from: date)
     }
-    
-    /*
-     "birth": {
-         "year": 1990, "month": 5, "day": 15,
-         "hour": 14, "minute": 30,
-         "city": "New York"
-     },
-     "date": "2023-10-27",
-     */
-    struct PersonalHoroscopePayloadData: Encodable {
-        var birth: PersonalBirthData
-        var date: Date
-        
-        struct PersonalBirthData: Encodable {
-            var year: Int
-            var month: Int
-            var day: Int
-            var hour: Int
-            var minute: Int
-            var city: String
-            
-            init(date: Date, city: String) {
-                let calendar = Calendar.current
-                
-                year = calendar.component(.year, from: date)
-                month = calendar.component(.month, from: date)
-                day = calendar.component(.day, from: date)
-                hour = calendar.component(.hour, from: date)
-                minute = calendar.component(.minute, from: date)
-                
-                self.city = city
-            }
-        }
-    }
 }
 
 extension HoroscopeService {
@@ -187,55 +124,8 @@ extension HoroscopeService {
             static let date = "date"
         }
     }
-}
-
-struct HoroscopeData: Decodable {
-    var data: GeneralData
     
-    struct GeneralData: Decodable {
-        var sign: String
-        var scores: Scores
-        var lucky: Lucky
-        var content: Content
-        
-        struct Scores: Decodable {
-            let overall: Int
-            let love: Int
-            let career: Int
-            let money: Int
-            let health: Int
-        }
-        
-        struct Lucky: Decodable {
-            var number: Int
-            var timeWindow: String
-            var color: Color
-            
-            struct Color: Decodable {
-                var key: String
-                var label: String
-            }
-            enum CodingKeys: String, CodingKey {
-                case number
-                case timeWindow = "time_window"
-                case color
-            }
-        }
-        
-        struct Content: Decodable {
-            var text: String
-            var theme: String
-            var keywords: [String]
-            var strengths: [String]
-            var weaknesses: [String]
-            
-            enum CodingKeys: String, CodingKey {
-                case text
-                case theme
-                case keywords
-                case strengths = "do"
-                case weaknesses = "dont"
-            }
-        }
+    private struct HTTPMethod {
+        static let post = "POST"
     }
 }
