@@ -6,43 +6,22 @@
 //
 
 import SwiftUI
-import Combine
-
-final class HoroscopeViewModel: ObservableObject {
-    @Published var horoscopeData: HoroscopeData?
-    var viewData: HoroscopeViewData
-    
-    init(viewData: HoroscopeViewData, selectedDate: Date) {
-        self.viewData = viewData
-        
-#if DEBUG
-        horoscopeData = MockData.horoscopeMockData
-#else
-        Task {
-            do {
-                horoscopeData = try await HoroscopeService.fetchHoroscope(for: viewData.zodiacSign, date: selectedDate)
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
-#endif
-    }
-}
 
 struct HoroscopeView: View {
     var selectedDate: Date
     @StateObject var viewModel: HoroscopeViewModel
+    let textOpacity = 0.6
     
     var body: some View {
         ZStack(alignment: .top) {
             BackgroundPrimaryViolet()
             VStack(spacing: 15) {
                 VStack {
-                    Text(viewModel.viewData.zodiacSign.title)
+                    Text(viewModel.zodiacSignText)
                         .font(.chivoHeadingMediumBold)
-                    Text(viewModel.viewData.zodiacSign.astroDatesString(formatter: DateFormatter.dayMonth).orEmpty)
+                    Text(viewModel.zodiacSignAstroDatesText)
                         .font(.chivoSubHeadingMediumBold)
-                        .opacity(0.6)
+                        .opacity(textOpacity)
                 }
                 
                 Divider()
@@ -51,50 +30,49 @@ struct HoroscopeView: View {
                 
                 HStack {
                     VStack(spacing: 8) {
-                        //TextDivider(text: "Lucky")
                         VStack {
                             Text("Color")
-                                .opacity(0.6)
-                            Label(viewModel.horoscopeData?.data.lucky.color.label ?? "nill", systemImage: "seal")
+                                .opacity(textOpacity)
+                            Label(viewModel.luckyColorText, systemImage: "seal")
                                 .symbolVariant(.fill)
-                                .foregroundStyle(.yellow)
+                                .foregroundStyle(viewModel.luckyColor)
                         }
                         
                         VStack {
                             Text("Number")
-                                .opacity(0.6)
-                            Label(String(viewModel.horoscopeData?.data.lucky.number ?? 0), systemImage: "bubbles.and.sparkles")
-                                .symbolVariant(.fill)
+                                .opacity(textOpacity)
+                            Label(String(viewModel.luckyNumberText), systemImage: "bubbles.and.sparkles")
                                 .foregroundStyle(.green)
                         }
                         
                         VStack {
                             Text("Time Interval")
-                                .opacity(0.6)
-                            Label(viewModel.horoscopeData?.data.lucky.timeWindow ?? "nill", systemImage: "clock")
+                                .opacity(textOpacity)
+                            Label(viewModel.luckyTimeText, systemImage: "clock")
                         }
                     }
                     .containerRelativeFrame(.horizontal, count: 10, span: 3, spacing: 0)
                     .font(.chivoSubHeadingSmallBold)
                     .foregroundStyle(.white)
                     
-                    Image(viewModel.viewData.zodiacSign.imageName)
+                    Image(viewModel.zodiacSignImageName)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .containerRelativeFrame(.horizontal, count: 10, span: 4, spacing: 0)
                     
                     VStack(spacing: 8) {
-                        //                        TextDivider(text: "Do")
                         VStack {
                             Text("Strenghts:")
-                            Text("Live")
-                            Text("Laught")
+                            ForEach(viewModel.strenghts, id: \.self) { strenght in
+                                Text(strenght)
+                            }
                         }
+                        
                         VStack {
-                            //                        TextDivider(text: "Dont")
                             Text("Weaknesses:")
-                            Text("Cry")
-                            Text("Die")
+                            ForEach(viewModel.weaknesses, id: \.self) { weakness in
+                                Text(weakness)
+                            }
                         }
                     }
                     .font(.chivoSubHeadingSmallBold)
@@ -104,13 +82,12 @@ struct HoroscopeView: View {
                 Divider()
                     .background(.white)
                     .frame(height: 2)
+                
                 HStack {
                     Text("Essential: ")
                         .font(.chivoHeadingMedium)
-                    Text(viewModel.horoscopeData?.data.content.theme ?? "nill")
+                    Text(viewModel.contentThemeText)
                         .font(.chivoHeadingMedium)
-                    //                        .foregroundStyle(.brandPrimaryViolet5)
-                    //                    Spacer()
                 }
                 
                 Divider()
@@ -119,21 +96,26 @@ struct HoroscopeView: View {
                 
                 Grid(horizontalSpacing: 20, verticalSpacing: 20) {
                     GridRow {
-                        ProgressLabelView(text: "Love")
-                        ProgressLabelView(text: "Career")
+                        ProgressLabelView(text: HoroscopeData.Scores.love.rawValue,
+                                          progress: viewModel.score(for: .love))
+                        ProgressLabelView(text: HoroscopeData.Scores.career.rawValue,
+                                          progress: viewModel.score(for: .career))
                     }
                     GridRow {
-                        ProgressLabelView(text: "Money")
-                        ProgressLabelView(text: "Health")
+                        ProgressLabelView(text: HoroscopeData.Scores.money.rawValue,
+                                          progress: viewModel.score(for: .money))
+                        ProgressLabelView(text: HoroscopeData.Scores.health.rawValue,
+                                          progress: viewModel.score(for: .health))
                     }
                     GridRow {
-                        ProgressLabelView(text: "Overall")
+                        ProgressLabelView(text: HoroscopeData.Scores.overall.rawValue,
+                                          progress: viewModel.score(for: .overall))
                     }.gridCellColumns(2)
                 }
                 Divider()
                     .background(.white)
                     .frame(height: 2)
-                Text(viewModel.horoscopeData?.data.content.text ?? "nill")
+                Text(viewModel.contentText)
                     .font(.chivoBody2)
             }
             .padding(.horizontal)
@@ -157,14 +139,15 @@ struct HoroscopeView: View {
     
     struct ProgressLabelView: View {
         var text: String
+        var progress: Int
         
         var body: some View {
             VStack(alignment: .leading) {
                 Text(text)
                     .font(.chivoHeadingMedium)
-                ProgressView(value: 0.9)
+                ProgressView(value: (Float(progress)/100))
                     .tint(.brandPrimaryViolet1)
-                Text("90%")
+                Text("\(progress)%")
                     .font(.chivoSubHeadingMediumBold)
                     .opacity(0.6)
             }

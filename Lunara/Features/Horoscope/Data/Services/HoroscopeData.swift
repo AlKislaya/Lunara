@@ -56,4 +56,12 @@ struct HoroscopeData: Decodable {
             }
         }
     }
+    
+    enum Scores: String, RawRepresentable {
+        case love, career, money, health, overall
+        
+        public var title: String {
+            rawValue.capitalized
+        }
+    }
 }
