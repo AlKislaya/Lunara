@@ -12,10 +12,19 @@ extension Font {
         static let regular = "Chivo-Medium_Regular"
         static let medium = "Chivo-Medium"
         static let semibold = "Chivo-Medium_SemiBold"
+        static let bold = "Chivo-Medium_Bold"
     }
+    
+    static let chivoHeadingSmallBold = Font.custom(ChivoFontNames.bold, size: 18)
+    static let chivoHeadingMediumBold = Font.custom(ChivoFontNames.bold, size: 20)
+    static let chivoHeadingLargeBold = Font.custom(ChivoFontNames.bold, size: 22)
     
     static let chivoHeadingSmall = Font.custom(ChivoFontNames.medium, size: 18)
     static let chivoHeadingMedium = Font.custom(ChivoFontNames.medium, size: 20)
+    
+    static let chivoSubHeadingLargeBold = Font.custom(ChivoFontNames.bold, size: 18)
+    static let chivoSubHeadingMediumBold = Font.custom(ChivoFontNames.bold, size: 16)
+    static let chivoSubHeadingSmallBold = Font.custom(ChivoFontNames.bold, size: 14)
     
     static let chivoBody1 = Font.custom(ChivoFontNames.regular, size: 18)
     static let chivoBody2 = Font.custom(ChivoFontNames.regular, size: 16)
