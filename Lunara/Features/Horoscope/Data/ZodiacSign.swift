@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum ZodiacSign: String, CaseIterable, Identifiable {
+enum ZodiacSign: String, CaseIterable, Identifiable, Hashable {
     case aries,
          taurus,
          gemini,
