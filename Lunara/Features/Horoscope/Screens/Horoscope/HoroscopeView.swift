@@ -40,7 +40,7 @@ struct HoroscopeView: View {
                 VStack {
                     Text(viewModel.viewData.zodiacSign.title)
                         .font(.chivoHeadingMediumBold)
-                    Text(viewModel.viewData.zodiacSign.astroDatesString(format: "d.MM") ?? "nill")
+                    Text(viewModel.viewData.zodiacSign.astroDatesString(formatter: DateFormatter.dayMonth).orEmpty)
                         .font(.chivoSubHeadingMediumBold)
                         .opacity(0.6)
                 }
@@ -141,7 +141,7 @@ struct HoroscopeView: View {
         .foregroundStyle(.white)
         .toolbar {
             ToolbarItem(placement: .title) {
-                Text(formatTitleDate())
+                Text(DateFormatter.fullDateLocalizedMonth.string(from: selectedDate))
                     .font(.chivoHeadingSmallBold)
                     .foregroundStyle(.white)
             }
@@ -201,12 +201,6 @@ struct HoroscopeView: View {
                     endPoint: endPoint))
                 .frame(height: 0.5)
         }
-    }
-    
-    func formatTitleDate() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "d MMMM yyyy"
-        return formatter.string(from: selectedDate)
     }
 }
 

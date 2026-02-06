@@ -51,7 +51,7 @@ extension HoroscopeService {
         }
         
         let configurationsQuery = [URLQueryItem(name: HTTPData.Params.sign, value: sign),
-                                   URLQueryItem(name: HTTPData.Params.date, value: formatDate(date: date))]
+                                   URLQueryItem(name: HTTPData.Params.date, value: DateFormatter.fullDate.string(from: date))]
         
         return url.appending(queryItems: configurationsQuery)
     }
@@ -87,17 +87,10 @@ extension HoroscopeService {
         
         return jsonData
     }
-    
-    private static func formatDate(date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = HoroscopeService.dateFormat
-        return formatter.string(from: date)
-    }
 }
 
 extension HoroscopeService {
     private static let apiKey = "979871046b33bca54c62d49b3b2617d3924009b5ec76e543f33a1483c4d11367"
-    private static let dateFormat = "yyyy-MM-dd"
     
     private struct UrlLibrary {
         static let baseUrl = "https://astro-api-1qnc.onrender.com"

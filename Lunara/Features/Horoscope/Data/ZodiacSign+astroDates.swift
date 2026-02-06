@@ -8,13 +8,10 @@
 import SwiftUI
 
 extension ZodiacSign {
-    public func astroDatesString(format: String) -> String? {
+    public func astroDatesString(formatter: DateFormatter) -> String? {
         guard let range = astroDates() else {
             return nil
         }
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = format
         
         let rangeString = "\(formatter.string(from: range.lowerBound)) - \(formatter.string(from: range.upperBound))"
         
