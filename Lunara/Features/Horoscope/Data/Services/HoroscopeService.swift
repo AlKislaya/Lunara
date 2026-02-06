@@ -7,9 +7,9 @@
 
 import Foundation
 
-class HoroscopeService {
+struct HoroscopeService {
     
-    public func fetchHoroscope(for sign: ZodiacSign, date: Date) async throws -> HoroscopeData? {
+    public static func fetchHoroscope(for sign: ZodiacSign, date: Date) async throws -> HoroscopeData? {
         let url = try formHoroscopeForSignURL(sign: sign.rawValue, date: date)
         
         var request = URLRequest(url: url)
@@ -24,7 +24,7 @@ class HoroscopeService {
         return try parseJson(with: data)
     }
     
-    public func fetchHoroscope(birthDate: Date, city: String, date: Date) async throws -> HoroscopeData? {
+    public static func fetchHoroscope(birthDate: Date, city: String, date: Date) async throws -> HoroscopeData? {
         let url = try formPersonalHoroscopeURL()
         
         var request = URLRequest(url: url)
@@ -45,7 +45,7 @@ class HoroscopeService {
 
 extension HoroscopeService {
     
-    private func formHoroscopeForSignURL(sign: String, date: Date) throws -> URL {
+    private static func formHoroscopeForSignURL(sign: String, date: Date) throws -> URL {
         guard let url = URL(string: UrlLibrary.baseUrl + UrlLibrary.EndPoints.horoscopeForSign) else {
             throw HoroscopeError.invalidURL(endPoint: UrlLibrary.EndPoints.horoscopeForSign)
         }
@@ -56,7 +56,7 @@ extension HoroscopeService {
         return url.appending(queryItems: configurationsQuery)
     }
     
-    private func formPersonalHoroscopeURL() throws -> URL {
+    private static func formPersonalHoroscopeURL() throws -> URL {
         guard let url = URL(string: UrlLibrary.baseUrl + UrlLibrary.EndPoints.horoscopePersonal) else {
             throw HoroscopeError.invalidURL(endPoint: UrlLibrary.EndPoints.horoscopePersonal)
         }
@@ -67,13 +67,13 @@ extension HoroscopeService {
 
 extension HoroscopeService {
     
-    private func parseJson(with data: Data) throws -> HoroscopeData? {
+    private static func parseJson(with data: Data) throws -> HoroscopeData? {
         let decoder = JSONDecoder()
         let result = try decoder.decode(HoroscopeData.self, from: data)
         return result
     }
     
-    private func encodePersonalHoroscopePayloadToJson(birthDate: Date, city: String, date: Date) throws -> Data {
+    private static func encodePersonalHoroscopePayloadToJson(birthDate: Date, city: String, date: Date) throws -> Data {
         let birthData = PersonalHoroscopePayloadData.PersonalBirthData(date: birthDate, city: city)
         let payloadData = PersonalHoroscopePayloadData(birth: birthData, date: date)
         
@@ -88,7 +88,7 @@ extension HoroscopeService {
         return jsonData
     }
     
-    private func formatDate(date: Date) -> String {
+    private static func formatDate(date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = HoroscopeService.dateFormat
         return formatter.string(from: date)
