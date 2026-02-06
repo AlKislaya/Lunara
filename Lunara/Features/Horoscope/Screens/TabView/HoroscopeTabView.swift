@@ -27,11 +27,17 @@ struct HoroscopeTabView: View {
                 ForEach(viewModel.zodiacSignsRows.indices, id: \.self) { row in
                     GridRow {
                         ForEach(viewModel.zodiacSignsRows[row], id: \.self) { sign in
-                            ZodiacSignGridItemView(sign: sign) //or can be replaced by $0
+                            NavigationLink(value: sign) {
+                                ZodiacSignGridItemView(sign: sign) //or can be replaced by $0
+                            }
                         }
                     }
                 }
             }.padding(.horizontal)
+        }
+        .navigationDestination(for: ZodiacSign.self) { sign in
+            HoroscopeView(selectedDate: datePickerViewModel.selectedDate,
+                          viewData: HoroscopeViewData(zodiacSign: sign))
         }
     }
 }
