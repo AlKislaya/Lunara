@@ -25,7 +25,7 @@ enum HoroscopeError: LocalizedError {
     
     var code: Int {
            switch self {
-           case .invalidURL(endPoint: let endPoint):
+           case .invalidURL(_):
                return 400
                
            case .serverError(_, let code):
