@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct HoroscopeTabView: View {
-    @State private var viewModel = HoroscopeTabViewModel()
+    private var viewModel = HoroscopeTabViewModel()
+    @StateObject var datePickerViewModel = DatePickerViewModel()
     
     var body: some View {
         ScrollView {
-            DatePickerView()
+            DatePickerView(viewModel: datePickerViewModel)
             Grid {
                 GridTextDivider(text: "Personal")
                 
@@ -36,8 +37,10 @@ struct HoroscopeTabView: View {
 }
 
 #Preview {
-    ZStack {
-        BackgroundPrimaryViolet()
-        HoroscopeTabView()
+    NavigationStack {
+        ZStack {
+            BackgroundPrimaryViolet()
+            HoroscopeTabView()
+        }
     }
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DatePickerView: View {
-    @StateObject var viewModel = DatePickerViewModel()
+    @ObservedObject var viewModel: DatePickerViewModel
     
     var body: some View {
         VStack {
@@ -49,6 +49,6 @@ struct DatePickerView: View {
 #Preview {
     ZStack {
         BackgroundPrimaryViolet()
-        DatePickerView()
+        DatePickerView(viewModel: DatePickerViewModel())
     }
 }
