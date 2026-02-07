@@ -15,43 +15,51 @@ struct HoroscopeView: View {
         ZStack(alignment: .top) {
             BackgroundPrimaryViolet()
             
-            ScrollView {
-                VStack(spacing: Padding.medium) {
-                    VStack {
-                        Text(viewModel.zodiacSignText)
-                            .font(.chivoHeadingMediumBold)
-                        Text(viewModel.zodiacSignAstroDatesText)
-                            .font(.chivoSubHeadingMediumBold)
-                            .opacity(Opacity.standartText)
-                    }.foregroundStyle(.brandPrimaryLightViolet)
-                    
-                    LuckyInformationView(lucky: viewModel.lucky,
-                                         color: viewModel.luckyColor,
-                                         zodiacSignImageName: viewModel.zodiacSignImageName)
-                    
-                    EssentialsView(contentThemeText: viewModel.contentThemeText,
-                                   strenghts: viewModel.strenghts,
-                                   weaknesses: viewModel.weaknesses)
-                    
-                    ScoresGridView(scores: viewModel.scores)
-                    
-                    HoroscopeContentView(text: viewModel.contentText)
-                }.padding(.horizontal, Padding.standart)
-            }
-            .toolbar {
-                ToolbarItem(placement: .title) {
-                    Text(DateFormatter.fullDateLocalizedMonth.string(from: selectedDate))
-                        .font(.chivoHeadingMediumBold)
-                        .foregroundStyle(.brandPrimaryLightViolet)
+            if (!viewModel.isLoading) {
+                ScrollView {
+                    VStack(spacing: Padding.medium) {
+                        VStack {
+                            Text(viewModel.zodiacSignText)
+                                .font(.chivoHeadingMediumBold)
+                            Text(viewModel.zodiacSignAstroDatesText)
+                                .font(.chivoSubHeadingMediumBold)
+                                .opacity(Opacity.standartText)
+                        }.foregroundStyle(.brandPrimaryLightViolet)
+                        
+                        LuckyInformationView(lucky: viewModel.lucky,
+                                             color: viewModel.luckyColor,
+                                             zodiacSignImageName: viewModel.zodiacSignImageName)
+                        
+                        EssentialsView(contentThemeText: viewModel.contentThemeText,
+                                       strenghts: viewModel.strenghts,
+                                       weaknesses: viewModel.weaknesses)
+                        
+                        ScoresGridView(scores: viewModel.scores)
+                        
+                        HoroscopeContentView(text: viewModel.contentText)
+                    }.padding(.horizontal, Padding.standart)
                 }
+            } else {
+                VStack {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .brandPrimaryLightViolet))
+                }.containerRelativeFrame(Axis.Set.vertical)
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .title) {
+                Text(DateFormatter.fullDateLocalizedMonth.string(from: selectedDate))
+                    .font(.chivoHeadingMediumBold)
+                    .foregroundStyle(.brandPrimaryLightViolet)
             }
         }
     }
     
     init(selectedDate: Date, viewData: HoroscopeViewData) {
         self.selectedDate = selectedDate
+        
         _viewModel = StateObject(
-            wrappedValue: HoroscopeViewModel(viewData: viewData, selectedDate: selectedDate)
+            wrappedValue: HoroscopeViewModel(viewData: viewData, with: selectedDate)
         )
     }
 }

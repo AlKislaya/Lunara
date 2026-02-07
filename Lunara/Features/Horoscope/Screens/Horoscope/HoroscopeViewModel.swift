@@ -10,6 +10,7 @@ import Combine
 
 final class HoroscopeViewModel: ObservableObject {
     @Published var horoscopeData: HoroscopeData?
+    @Published var isLoading = true
     let isPreview = ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
     var viewData: HoroscopeViewData
     
@@ -24,18 +25,26 @@ final class HoroscopeViewModel: ObservableObject {
         "white": .white
     ]
     
-    init(viewData: HoroscopeViewData, selectedDate: Date) {
+    init(viewData: HoroscopeViewData, with date: Date) {
         self.viewData = viewData
+        fetchHoroscope(for: date)
+    }
+    
+    public func fetchHoroscope(for date: Date) {
+        isLoading = true
         
         if (isPreview) {
             horoscopeData = MockData.horoscopeMockData
+            isLoading = false
         } else {
             Task {
                 do {
                     horoscopeData = try await HoroscopeService.fetchHoroscope(for: viewData.zodiacSign,
-                                                                              date: selectedDate)
+                                                                              date: date)
+                    isLoading = false
                 } catch {
                     print(error.localizedDescription)
+                    //isLoading = false ??
                 }
             }
         }
