@@ -8,30 +8,30 @@
 import Foundation
 
 struct HoroscopeData: Decodable {
-    var data: GeneralData
+    var data: GeneralData = GeneralData()
     
     struct GeneralData: Decodable {
-        var sign: String
-        var scores: Scores
-        var lucky: Lucky
-        var content: Content
+        var sign: String = ""
+        var scores: Scores = Scores()
+        var lucky: Lucky = Lucky()
+        var content: Content = Content()
         
         struct Scores: Decodable {
-            let overall: Int
-            let love: Int
-            let career: Int
-            let money: Int
-            let health: Int
+            var overall: Int = 0
+            var love: Int = 0
+            var career: Int = 0
+            var money: Int = 0
+            var health: Int = 0
         }
         
         struct Lucky: Decodable {
-            var number: Int
-            var timeWindow: String
-            var color: Color
+            var number: Int = 0
+            var timeWindow: String = ""
+            var color: Color = Color()
             
             struct Color: Decodable {
-                var key: String
-                var label: String
+                var key: String = ""
+                var label: String = ""
             }
             enum CodingKeys: String, CodingKey {
                 case number
@@ -41,11 +41,11 @@ struct HoroscopeData: Decodable {
         }
         
         struct Content: Decodable {
-            var text: String
-            var theme: String
-            var keywords: [String]
-            var strengths: [String]
-            var weaknesses: [String]
+            var text: String = ""
+            var theme: String = ""
+            var keywords: [String] = [String]()
+            var strengths: [String] = [String]()
+            var weaknesses: [String] = [String]()
             
             enum CodingKeys: String, CodingKey {
                 case text
