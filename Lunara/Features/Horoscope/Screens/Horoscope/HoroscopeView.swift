@@ -19,13 +19,8 @@ struct HoroscopeView: View {
             if (!viewModel.isLoading) {
                 ScrollView {
                     VStack(spacing: Padding.medium) {
-                        VStack {
-                            Text(viewModel.zodiacSignText)
-                                .font(.chivoHeadingMediumBold)
-                            Text(viewModel.zodiacSignAstroDatesText)
-                                .font(.chivoSubHeadingMediumBold)
-                                .opacity(Opacity.standartText)
-                        }.foregroundStyle(.brandPrimaryLightViolet)
+                        HoroscopeTitleView(zodiacSignText: viewModel.zodiacSignText,
+                                           zodiacSignAstroDatesText: viewModel.zodiacSignAstroDatesText)
                         
                         LuckyInformationView(lucky: viewModel.lucky,
                                              color: viewModel.luckyColor,
@@ -70,6 +65,7 @@ struct HoroscopeView: View {
         )
     }
 }
+
 
 #Preview {
     HoroscopeView(selectedDate: MockData.horoscopeMockSelectedDate,
