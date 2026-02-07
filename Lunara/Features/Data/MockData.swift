@@ -5,6 +5,8 @@
 //  Created by Alexandra on 6.02.26.
 //
 
+import SwiftUI
+
 struct MockData {
     public static let horoscopeMockData = HoroscopeData(data: HoroscopeData.GeneralData(sign: ZodiacSign.virgo.rawValue,
                                                                                         scores: HoroscopeData.GeneralData.Scores(overall: 80,
@@ -16,9 +18,20 @@ struct MockData {
                                                                                                timeWindow: "11am - 1pm",
                                                                                                color: HoroscopeData.GeneralData.Lucky.Color(key: "green",
                                                                                                                                             label: "Green")),
-                                                        content: HoroscopeData.GeneralData.Content(text: "ContentText",
+                                                        content: HoroscopeData.GeneralData.Content(text: "With the Moon in Virgo (Waning Gibbous), the cosmic mood favors detailed planning. For you, this brings a focus on energy. The energy today supports meaningful connection. Trust your instincts as you navigate the day's potential.",
                                                                                                    theme: "Love",
                                                                                                    keywords: ["Live", "Laught"],
-                                                                                                   strengths: ["Live", "Laught"],
-                                                                                                   weaknesses: ["Cars", "Grey color"])))
+                                                                                                   strengths: ["Trust your intuition", "Take small steps"],
+                                                                                                   weaknesses: ["Overthink small details", "Rush into decisions"])))
+    
+    public static let horoscopeMockSelectedDate: Date = {
+        let calendar = Calendar.current
+        
+        var component = DateComponents()
+        component.year = 2025
+        component.month = 5
+        component.day = 25
+        
+        return calendar.date(from: component)!
+    }()
 }
