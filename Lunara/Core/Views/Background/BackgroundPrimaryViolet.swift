@@ -23,6 +23,13 @@ struct BackgroundPrimaryViolet : View {
                         startRadiusFraction: 0,
                         endRadiusFraction: 1))
                 .opacity(Opacity.container)
+            Rectangle()
+                .fill(
+                    ImagePaint(
+                        image: Image("Background"),
+                        scale: 1
+                    )
+                )
         }
         .ignoresSafeArea()
     }
