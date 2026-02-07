@@ -11,6 +11,7 @@ enum HoroscopeError: LocalizedError {
     case invalidURL(endPoint: String)
     case serverError(description: String, code: Int)
     case jsonEncodingError
+    case swiftError(description: String, code: Int)
     
     var errorDescription: String? {
         switch self {
@@ -20,6 +21,8 @@ enum HoroscopeError: LocalizedError {
             return description
         case .jsonEncodingError:
             return "json encoding error"
+        case.swiftError(let description, _):
+            return description
         }
     }
     
@@ -33,6 +36,8 @@ enum HoroscopeError: LocalizedError {
                
            case .jsonEncodingError:
                return 1202
+           case .swiftError(_, let code):
+               return code
            }
        }
 }

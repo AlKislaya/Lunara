@@ -9,11 +9,20 @@ import SwiftUI
 import Combine
 
 final class HoroscopeViewModel: ObservableObject {
+    var viewData: HoroscopeViewData
     @Published var horoscopeData: HoroscopeData?
     @Published var isLoading = true
-    let isPreview = ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
-    var viewData: HoroscopeViewData
     
+    @Published var fetchError: HoroscopeError?
+    var isShowingError: Binding<Bool> {
+        Binding {
+            self.fetchError != nil
+        } set: { _ in
+            self.fetchError = nil
+        }
+    }
+    
+    let isPreview = ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
     let defaultColor: Color = .white
     let colors: [String: Color] = [
         "red": .red,
@@ -33,26 +42,29 @@ final class HoroscopeViewModel: ObservableObject {
     public func fetchHoroscope(for date: Date) {
         isLoading = true
         
-        if (isPreview) {
-            Task {
-                try await Task.sleep(nanoseconds: 1_000_000_000)
-                horoscopeData = MockData.horoscopeMockData
+        Task {
+            do {
+                if (isPreview) {
+                    //throw HoroscopeError.swiftError(description: "descr", code: 1000)
+                    try await Task.sleep(nanoseconds: 1_000_000_000)
+                    horoscopeData = MockData.horoscopeMockData
+                } else {
+                    horoscopeData = try await HoroscopeService.fetchHoroscope(for: viewData.zodiacSign,
+                                                                              date: date)
+                }
+                
                 withAnimation {
                     isLoading = false
                 }
-            }
-        } else {
-            Task {
-                do {
-                    horoscopeData = try await HoroscopeService.fetchHoroscope(for: viewData.zodiacSign,
-                                                                              date: date)
-                    withAnimation {
-                        isLoading = false
-                    }
-                } catch {
-                    print(error.localizedDescription)
-                    //isLoading = false ??
+            } catch {
+                if (error is HoroscopeError) {
+                    fetchError = error as? HoroscopeError
+                } else {
+                    let nsError = error as NSError
+                    fetchError = HoroscopeError.swiftError(description: error.localizedDescription,
+                                                           code: nsError.code)
                 }
+                //isLoading = false ??
             }
         }
     }

@@ -53,6 +53,10 @@ struct HoroscopeView: View {
                     .foregroundStyle(.brandPrimaryLightViolet)
             }
         }
+        .alert(isPresented: viewModel.isShowingError,
+               error: viewModel.fetchError) {
+            //pop to root
+        }
     }
     
     init(selectedDate: Date, viewData: HoroscopeViewData) {
