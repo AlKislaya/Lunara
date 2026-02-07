@@ -13,6 +13,7 @@ final class HoroscopeViewModel: ObservableObject {
     let isPreview = ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
     var viewData: HoroscopeViewData
     
+    let defaultColor: Color = .white
     let colors: [String: Color] = [
         "red": .red,
         "blue": .blue,

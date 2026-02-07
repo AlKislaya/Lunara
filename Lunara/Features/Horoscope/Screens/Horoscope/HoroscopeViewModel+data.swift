@@ -24,16 +24,14 @@ extension HoroscopeViewModel {
     }
     
     public var luckyColor: Color {
-        return colors[(data?.lucky.color.key).orEmpty] ?? Color.white
+        return colors[(data?.lucky.color.key).orEmpty] ?? defaultColor
     }
-    public var luckyColorText: String {
-        return (data?.lucky.color.label).orEmpty
-    }
-    public var luckyNumberText: String {
-        return (data?.lucky.number.description).orEmpty
-    }
-    public var luckyTimeText: String {
-        return (data?.lucky.timeWindow).orEmpty
+    public var lucky: HoroscopeData.GeneralData.Lucky {
+        guard let safeData = data else {
+            return HoroscopeData.GeneralData.Lucky()
+        }
+        
+        return safeData.lucky
     }
     
     public var strenghts: [String] {
@@ -50,22 +48,11 @@ extension HoroscopeViewModel {
         return (data?.content.theme).orEmpty
     }
     
-    public func score(for score: HoroscopeData.Scores) -> Int {
+    public var scores: HoroscopeData.GeneralData.Scores {
         guard let safeData = data else {
-            return 0
+            return HoroscopeData.GeneralData.Scores()
         }
         
-        switch score {
-        case .love:
-            return safeData.scores.love
-        case .career:
-            return safeData.scores.career
-        case .money:
-            return safeData.scores.money
-        case .health:
-            return safeData.scores.health
-        case .overall:
-            return safeData.scores.overall
-        }
+        return safeData.scores
     }
 }
