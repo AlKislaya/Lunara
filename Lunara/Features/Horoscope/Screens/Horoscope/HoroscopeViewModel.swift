@@ -34,14 +34,21 @@ final class HoroscopeViewModel: ObservableObject {
         isLoading = true
         
         if (isPreview) {
-            horoscopeData = MockData.horoscopeMockData
-            isLoading = false
+            Task {
+                try await Task.sleep(nanoseconds: 1_000_000_000)
+                horoscopeData = MockData.horoscopeMockData
+                withAnimation {
+                    isLoading = false
+                }
+            }
         } else {
             Task {
                 do {
                     horoscopeData = try await HoroscopeService.fetchHoroscope(for: viewData.zodiacSign,
                                                                               date: date)
-                    isLoading = false
+                    withAnimation {
+                        isLoading = false
+                    }
                 } catch {
                     print(error.localizedDescription)
                     //isLoading = false ??
