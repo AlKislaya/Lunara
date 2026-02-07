@@ -14,12 +14,12 @@ struct ZodiacSignGridItemView : View {
         ZStack {
             OpaqueRoundedRectangle(color: .black)
             
-            VStack(spacing: 8) {
+            VStack(spacing: Padding.standart) {
                 Image(sign.imageName)
                 Text(sign.title)
-                    .font(.chivoBody4)
-                    .foregroundStyle(.white)
-            }.padding()
+                    .font(.chivoButtonSmall)
+                    .foregroundStyle(.brandPrimaryLightViolet)
+            }.padding(Padding.standart)
         }
         .aspectRatio(0.8, contentMode: .fit)
         .roundedRectangleGradientBorder()

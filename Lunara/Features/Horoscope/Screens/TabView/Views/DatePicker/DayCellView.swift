@@ -17,13 +17,13 @@ struct DayCellView: View {
         ZStack {
             OpaqueRoundedRectangle(color: backgroundColor)
             
-            VStack(spacing: 8) {
+            VStack(spacing: Padding.standart) {
                 Text("\(DayCellView.calendar.component(.day, from: date))")
                     .font(.chivoHeadingMedium)
                 Text(dayOfTheWeekAbbreviation)
                     .font(.chivoButtonXSmall)
             }
-            .foregroundStyle(.white)
+            .foregroundStyle(.brandPrimaryLightViolet)
         }
         .aspectRatio(0.8, contentMode: .fit)
         .roundedRectangleGradientBorder()

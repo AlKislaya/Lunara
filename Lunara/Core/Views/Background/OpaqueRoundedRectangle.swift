@@ -12,6 +12,6 @@ struct OpaqueRoundedRectangle: View {
     
     var body: some View {
         RoundedRectangle(cornerRadius: AppCornerRadius.medium)
-            .fill(color.opacity(0.5))
+            .fill(color.opacity(Opacity.container))
     }
 }

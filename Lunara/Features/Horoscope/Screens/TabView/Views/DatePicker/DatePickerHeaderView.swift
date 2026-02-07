@@ -17,8 +17,8 @@ struct DatePickerHeaderView: View {
             Text(DateFormatter.localizedMonthDay.string(from: selectedDate))
         }
         .font(.chivoHeadingSmall)
-        .foregroundStyle(.white)
-        .padding(.horizontal)
+        .foregroundStyle(.brandPrimaryLightViolet)
+        .padding(.horizontal, Padding.standart)
     }
     
     private var dayAbbreviation: String {

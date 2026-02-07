@@ -17,14 +17,13 @@ struct GridTextDivider: View {
                 
                 Text(text)
                     .font(.chivoButtonMedium)
-                    .foregroundStyle(.white)
-                    .lineLimit(2)
-                    .multilineTextAlignment(.center)
+                    .foregroundStyle(.brandPrimaryLightViolet)
+                    .layoutPriority(1)
                 
                 Line(startPoint: .trailing, endPoint: .leading)
             }
             .gridCellColumns(3)
-        }.padding(.vertical)
+        }.padding(.vertical, Padding.standart)
     }
     
     struct Line: View {
@@ -34,7 +33,7 @@ struct GridTextDivider: View {
         var body: some View {
             Rectangle()
                 .fill(.linearGradient(
-                    colors: [.white.opacity(0.2), .white.opacity(0.8)],
+                    colors: [.brandPrimaryLightViolet.opacity(0.2), .brandPrimaryLightViolet.opacity(0.8)],
                     startPoint: startPoint,
                     endPoint: endPoint))
                 .frame(height: 0.5)

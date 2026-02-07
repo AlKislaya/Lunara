@@ -22,7 +22,7 @@ struct BackgroundPrimaryViolet : View {
                         center: .top,
                         startRadiusFraction: 0,
                         endRadiusFraction: 1))
-                .opacity(0.5)
+                .opacity(Opacity.container)
         }
         .ignoresSafeArea()
     }
