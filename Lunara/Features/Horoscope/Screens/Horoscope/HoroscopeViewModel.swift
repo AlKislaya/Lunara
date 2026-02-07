@@ -45,7 +45,7 @@ final class HoroscopeViewModel: ObservableObject {
         Task {
             do {
                 if (isPreview) {
-                    //throw HoroscopeError.swiftError(description: "descr", code: 1000)
+                    //throw HoroscopeError.swiftError(description: "Error description", code: 1000)
                     try await Task.sleep(nanoseconds: 1_000_000_000)
                     horoscopeData = MockData.horoscopeMockData
                 } else {
@@ -61,7 +61,7 @@ final class HoroscopeViewModel: ObservableObject {
                     fetchError = error as? HoroscopeError
                 } else {
                     let nsError = error as NSError
-                    fetchError = HoroscopeError.swiftError(description: error.localizedDescription,
+                    fetchError = HoroscopeError.nsError(description: error.localizedDescription,
                                                            code: nsError.code)
                 }
                 //isLoading = false ??

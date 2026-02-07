@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HoroscopeView: View {
+    @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: HoroscopeViewModel
     var selectedDate: Date
     
@@ -55,7 +56,9 @@ struct HoroscopeView: View {
         }
         .alert(isPresented: viewModel.isShowingError,
                error: viewModel.fetchError) {
-            //pop to root
+            Button("OK") {
+                dismiss()
+            }
         }
     }
     
