@@ -49,6 +49,7 @@ struct HoroscopeView: View {
                     .foregroundStyle(.brandPrimaryLightViolet)
             }
         }
+        .toolbar(.hidden, for: .tabBar) 
         .alert(isPresented: viewModel.isShowingError,
                error: viewModel.fetchError) {
             Button("OK") {
