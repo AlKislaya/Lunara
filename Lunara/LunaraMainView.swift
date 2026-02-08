@@ -15,6 +15,7 @@ struct LunaraMainView: View {
                     Label("Horoscope", image: "PlanetIcon")
                 }
         }
+        .tint(.brandPrimaryViolet5)
     }
 }
 
