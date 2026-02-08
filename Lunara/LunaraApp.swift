@@ -11,7 +11,7 @@ import SwiftUI
 struct LunaraApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LunaraMainView()
         }
     }
 }
