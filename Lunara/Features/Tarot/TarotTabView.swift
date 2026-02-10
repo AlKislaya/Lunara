@@ -8,19 +8,21 @@
 import SwiftUI
 
 struct TarotTabView: View {
+    @State var items = ["1", "2", "3", "4", "5"]
+    @State var droppedItem: String? = nil
     
     var body: some View {
         ZStack {
             BackgroundPrimaryViolet()
             VStack {
                 Spacer()
-                TarotDeckScrollView()
-            }.ignoresSafeArea(edges: .bottom)
+                DropSlotView(itemsCollection: $items, dropItem: $droppedItem)
+                Spacer()
+                TarotDeckScrollView(items: $items)
+            }
         }
     }
 }
-
-
 
 #Preview {
     TarotTabView()
