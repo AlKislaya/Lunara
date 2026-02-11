@@ -34,6 +34,7 @@ struct TarotDeckScrollView: View {
                         .id(item)
                         .draggable(item) {
                             Image(cardImage)
+                                .resizable()
                                 .frame(width: cardWidth, height: cardHeight)
                         }
                     }
