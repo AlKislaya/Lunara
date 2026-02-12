@@ -14,6 +14,10 @@ struct LunaraMainView: View {
                 .tabItem {
                     Label("Horoscope", image: "PlanetIcon")
                 }
+            TarotTabView()
+                .tabItem {
+                    Label("Tarot", image: "TarotIcon")
+                }
         }
         .tint(.brandPrimaryViolet5)
     }
