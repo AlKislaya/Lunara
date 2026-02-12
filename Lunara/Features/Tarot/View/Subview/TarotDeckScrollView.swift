@@ -11,7 +11,7 @@ struct TarotDeckScrollView: View {
     let cardImage: String
     let cardSize: CGSize
     
-    @Binding var items: [String]
+    @Binding var items: [TarotCard]
     @Binding var dragDropState: DragDropState
     
     var body: some View {

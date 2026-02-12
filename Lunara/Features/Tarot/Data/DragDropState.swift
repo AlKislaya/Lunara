@@ -9,8 +9,8 @@ import SwiftUI
 
 enum DragDropState: Equatable {
     case none
-    case dragging(item: String, point: CGPoint)
-    case dropped(item: String, point: CGPoint)
+    case dragging(item: TarotCard, point: CGPoint)
+    case dropped(item: TarotCard, point: CGPoint)
 }
 
 extension DragDropState {
@@ -19,7 +19,7 @@ extension DragDropState {
         return false
     }
     
-    func isDragging(with target: String) -> Bool {
+    func isDragging(with target: TarotCard) -> Bool {
         if case let .dragging(item, _) = self {
             return item == target
         }

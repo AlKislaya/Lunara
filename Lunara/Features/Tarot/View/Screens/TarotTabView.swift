@@ -11,8 +11,9 @@ struct TarotTabView: View {
     let cardImage = "BackCard"
     let cardSize: CGSize = CGSize(width: 104, height: 176)
     
-    @State var items = ["1", "2", "3", "4", "5"]
+    @State var items = TarotCard.allCases.shuffled()
     @State var dragDropState: DragDropState = .none
+    @State var selectedCard: TarotCard? = nil
     
     var body: some View {
         NavigationStack {
@@ -31,7 +32,8 @@ struct TarotTabView: View {
                         DropSlotView(cardImage: cardImage,
                                      text: "Now",
                                      itemsCollection: $items,
-                                     dragDropState: $dragDropState)
+                                     dragDropState: $dragDropState,
+                                     selectedCard: $selectedCard)
                         .padding(Padding.medium)
                     }
                     .padding(Padding.medium)

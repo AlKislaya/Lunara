@@ -10,9 +10,9 @@ import SwiftUI
 struct DropSlotView: View {
     let cardImage: String
     let text: String
-    @Binding var itemsCollection: [String]
+    @Binding var itemsCollection: [TarotCard]
     @Binding var dragDropState: DragDropState
-    @State var currItem: String? = nil
+    @Binding var selectedCard: TarotCard?
     
     var body: some View {
         VStack(spacing: Padding.medium) {
@@ -27,8 +27,8 @@ struct DropSlotView: View {
                     let frame = geo.frame(in: .global)
                     Image(cardImage)
                         .resizable()
-                        .opacity(currItem == nil ? 0 : 1)
-                        .scaleEffect(currItem != nil ? 1.0 : 1.1)
+                        .opacity(selectedCard == nil ? 0 : 1)
+                        .scaleEffect(selectedCard != nil ? 1.0 : 1.1)
                         .onChange(of: dragDropState) { newState in
                             guard case let .dropped(item, point) = newState else {
                                 return
@@ -36,12 +36,12 @@ struct DropSlotView: View {
                             
                             dragDropState = .none
                             
-                            if currItem != nil || !frame.contains(point) {
+                            if selectedCard != nil || !frame.contains(point) {
                                 return
                             }
                             
                             itemsCollection.removeAll(where: { $0 == item })
-                            currItem = item
+                            selectedCard = item
                         }
                 }
             }
