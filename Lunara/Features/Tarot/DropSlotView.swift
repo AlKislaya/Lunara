@@ -8,36 +8,52 @@
 import SwiftUI
 
 struct DropSlotView: View {
+    let cardImage: String
+    let text: String
     @Binding var itemsCollection: [String]
-    @Binding var dropItem: String?
-    @State var isDropTargeted = false
+    @Binding var dragDropState: DragDropState
+    @State var currItem: String? = nil
     
     var body: some View {
-        ZStack {
-            OpaqueRoundedRectangle(color: isDropTargeted ? .brandPrimaryBlue : .black)
-                .frame(width: 180, height: 300)
-                .overlay {
-                        Image("BackCard")
-                            .resizable()
-                            .opacity(dropItem == nil ? 0 : 1)
-                            .scaleEffect(dropItem != nil ? 1.0 : 1.1)
+        VStack(spacing: Padding.medium) {
+            ZStack {
+                OpaqueRoundedRectangle(color: .black)
+                    .roundedRectangleBorder(color: .brandPrimaryLightViolet.opacity(0.2))
+                Text("Drag Here")
+                    .font(.chivoButtonXSmall)
+                    .foregroundStyle(.brandPrimaryLightViolet)
+                    .opacity(Opacity.standartText)
+                GeometryReader { geo in
+                    let frame = geo.frame(in: .global)
+                    Image(cardImage)
+                        .resizable()
+                        .opacity(currItem == nil ? 0 : 1)
+                        .scaleEffect(currItem != nil ? 1.0 : 1.1)
+                        .onChange(of: dragDropState) { newState in
+                            guard case let .dropped(item, point) = newState else {
+                                return
+                            }
+                            
+                            dragDropState = .none
+                            
+                            if currItem != nil || !frame.contains(point) {
+                                return
+                            }
+                            
+                            itemsCollection.removeAll(where: { $0 == item })
+                            currItem = item
+                        }
                 }
-        }
-        .dropDestination(for: String.self) { droppedItems, location in
-            if dropItem != nil {
-                return false
             }
-            guard let item = droppedItems.first else {
-                return false
-            }
-            withAnimation(.default) {
-                dropItem = item
-            }
+            .aspectRatio(0.58, contentMode: .fit)
             
-            itemsCollection.removeAll { $0 == item }
-            return true
-        } isTargeted: {
-            isDropTargeted = $0
+            Text(text)
+                .font(.chivoButtonSmall)
+                .foregroundStyle(.brandPrimaryLightViolet)
         }
     }
+}
+
+#Preview {
+    TarotTabView()
 }
