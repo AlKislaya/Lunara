@@ -29,6 +29,27 @@ extension TarotCard {
         }
     }
     
+    var imageAssetName: String {
+        switch self {
+        case .fool: return "Fool"
+        case .magician: return "Magician"
+        case .highPriestess: return "HighPriestess"
+        case .hierophant: return "Hierophant"
+        case .lovers: return "Lovers"
+        case .chariot: return "Chariot"
+        case .strength: return "Strength"
+        case .hermit: return "Hermit"
+        case .temperance: return "Temperance"
+        case .devil: return "Devil"
+        case .tower: return "Tower"
+        case .star: return "Star"
+        case .moon: return "Moon"
+        case .sun: return "Sun"
+        case .judgement: return "Judgement"
+        case .world: return "World"
+        }
+    }
+    
     var generalDescription: String {
         switch self {
         case .fool: return "The Fool represents the beginning of a journey where potential is wide open and the future is not yet defined. It speaks about stepping into the unknown with trust, curiosity, and a willingness to learn through direct experience rather than careful planning. This card carries a sense of freedom and innocence: the courage to act without being weighed down by past mistakes or expectations. At the same time, the Fool reminds us that naïveté can be both a gift and a risk. It suggests a leap of faith that can lead to growth and discovery, but only if one stays aware of their surroundings and takes responsibility for the consequences of their choices. Ultimately, the Fool is about embracing life as an adventure, accepting uncertainty, and allowing yourself to evolve through bold, authentic movement forward."
