@@ -21,13 +21,14 @@ struct RoundedRectangleGradientBorder: ViewModifier {
 
 struct RoundedRectangleBorder: ViewModifier {
     let cornerRadius: CGFloat
+    let lineWidth: CGFloat
     let color: Color
     
     func body(content: Content) -> some View {
         content
             .overlay(
             RoundedRectangle(cornerRadius: cornerRadius)
-                .stroke(color, lineWidth: 1)
+                .stroke(color, lineWidth: lineWidth)
         )
     }
 }

@@ -11,7 +11,7 @@ extension View {
     func roundedRectangleGradientBorder(cornerRadius: CGFloat = AppCornerRadius.medium) -> some View {
         modifier(RoundedRectangleGradientBorder(cornerRadius: cornerRadius))
     }
-    func roundedRectangleBorder(color: Color, cornerRadius: CGFloat = AppCornerRadius.medium) -> some View {
-        modifier(RoundedRectangleBorder(cornerRadius: cornerRadius, color: color))
+    func roundedRectangleBorder(color: Color, cornerRadius: CGFloat = AppCornerRadius.medium, lineWidth: CGFloat = 1) -> some View {
+        modifier(RoundedRectangleBorder(cornerRadius: cornerRadius, lineWidth: lineWidth, color: color))
     }
 }

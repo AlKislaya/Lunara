@@ -15,6 +15,19 @@ struct TarotTabView: View {
     @State var dragDropState: DragDropState = .none
     @State var selectedCard: TarotCard? = nil
     
+    private var isCardSelected: Binding<Bool> {
+        Binding(
+            get: { selectedCard != nil },
+            set: {
+                if !$0 {
+                    selectedCard = nil
+                    dragDropState = .none
+                    items = TarotCard.allCases.shuffled()
+                }
+            }
+        )
+    }
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -54,6 +67,11 @@ struct TarotTabView: View {
                 DraggableOverlayCardView(cardImage: cardImage,
                                          cardSize: cardSize,
                                          dragDropState: $dragDropState)
+            }
+            .navigationDestination(isPresented: isCardSelected) {
+                if let results = selectedCard {
+                    TarotResultsView(results: results)
+                }
             }
         }
     }
