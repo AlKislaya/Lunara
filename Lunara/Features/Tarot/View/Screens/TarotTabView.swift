@@ -42,7 +42,7 @@ struct TarotTabView: View {
                             .roundedRectangleBorder(color: .brandPrimaryLightViolet.opacity(Opacity.lightContainer))
                         
                         
-                        DropSlotView(cardImage: cardImage,
+                        DropSlotView(backCardImage: cardImage,
                                      text: "Now",
                                      itemsCollection: $items,
                                      dragDropState: $dragDropState,

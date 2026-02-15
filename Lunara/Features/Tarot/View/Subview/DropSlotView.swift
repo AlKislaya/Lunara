@@ -8,11 +8,15 @@
 import SwiftUI
 
 struct DropSlotView: View {
-    let cardImage: String
+    let backCardImage: String
     let text: String
     @Binding var itemsCollection: [TarotCard]
     @Binding var dragDropState: DragDropState
     @Binding var selectedCard: TarotCard?
+    @State var cardImage: String
+    @State var scale: CGFloat = 1.1
+    @State var opacity: CGFloat = 0
+    @State var rotation: CGFloat = 180
     
     var body: some View {
         VStack(spacing: Padding.medium) {
@@ -27,8 +31,13 @@ struct DropSlotView: View {
                     let frame = geo.frame(in: .global)
                     Image(cardImage)
                         .resizable()
-                        .opacity(selectedCard == nil ? 0 : 1)
-                        .scaleEffect(selectedCard != nil ? 1.0 : 1.1)
+                        .opacity(opacity)
+                        .scaleEffect(scale)
+                        .rotation3DEffect(
+                            Angle(degrees: rotation),
+                            axis: (x: 0.0, y: 1.0, z: 0.0),
+                            perspective: 0.5
+                        )
                         .onChange(of: dragDropState) { newState in
                             guard case let .dropped(item, point) = newState else {
                                 return
@@ -41,7 +50,7 @@ struct DropSlotView: View {
                             }
                             
                             itemsCollection.removeAll(where: { $0 == item })
-                            selectedCard = item
+                            cardAnimation(item)
                         }
                 }
             }
@@ -51,6 +60,59 @@ struct DropSlotView: View {
                 .font(.chivoButtonSmall)
                 .foregroundStyle(.brandPrimaryLightViolet)
         }
+    }
+    
+    private func cardAnimation(_ item: TarotCard) -> Task<(), any Error> {
+        return Task {
+            //block ui
+            //scale and change opacity to put card on the table
+            withAnimation(Animation.easeIn(duration: 0.5)) {
+                scale = 1
+                opacity = 1
+            }
+            try await Task.sleep(nanoseconds: 500_000_000)
+            
+            //scale and half rotate
+            withAnimation(Animation.easeIn(duration: 0.5)) {
+                scale = 1.1
+            }
+            try await Task.sleep(nanoseconds: 500_000_000)
+            withAnimation(Animation.easeIn(duration: 0.5)) {
+                rotation = 90
+            }
+            try await Task.sleep(nanoseconds: 500_000_000)
+            
+            //change image and finish rotation
+            cardImage = item.imageAssetName
+            withAnimation(Animation.easeIn(duration: 0.5)) {
+                rotation = 0
+            }
+            try await Task.sleep(nanoseconds: 500_000_000)
+            
+            //put card back on the table
+            withAnimation(Animation.easeInOut(duration: 0.5)) {
+                scale = 1
+            }
+            try await Task.sleep(nanoseconds: 700_000_000)
+            
+            //select cart to open results screen
+            selectedCard = item
+            
+            //reset values
+            cardImage = backCardImage
+            scale = 1.1
+            opacity = 0
+            rotation = 180
+        }
+    }
+    
+    init(backCardImage: String, text: String, itemsCollection: Binding<[TarotCard]>, dragDropState: Binding<DragDropState>, selectedCard: Binding<TarotCard?>) {
+        self.backCardImage = backCardImage
+        self.text = text
+        self._itemsCollection = itemsCollection
+        self._dragDropState = dragDropState
+        self._selectedCard = selectedCard
+        self.cardImage = backCardImage
     }
 }
 
