@@ -21,7 +21,6 @@ extension TarotCard {
         case .temperance: return "Temperance"
         case .devil: return "The Devil"
         case .tower: return "The Tower"
-        case .star: return "The Star"
         case .moon: return "The Moon"
         case .sun: return "The Sun"
         case .judgement: return "Judgement"
@@ -42,7 +41,6 @@ extension TarotCard {
         case .temperance: return "Temperance"
         case .devil: return "Devil"
         case .tower: return "Tower"
-        case .star: return "Star"
         case .moon: return "Moon"
         case .sun: return "Sun"
         case .judgement: return "Judgement"
@@ -63,7 +61,6 @@ extension TarotCard {
         case .temperance: return "Temperance represents balance, moderation, and harmony. It encourages blending different aspects of life, patience, and finding equilibrium. This card signifies cooperation, adaptability, and measured progress."
         case .devil: return "The Devil reflects attachment, temptation, and facing shadow aspects of oneself. It highlights the need to recognize unhealthy patterns, fears, and dependencies. This card serves as a reminder to reclaim freedom through awareness and conscious choices."
         case .tower: return "The Tower signals sudden upheaval, revelation, or destruction of false structures. It often represents a breakthrough following chaos, forcing clarity and transformation. Though challenging, it clears the way for growth and rebuilding."
-        case .star: return "The Star embodies hope, inspiration, and renewal. It signifies faith in the future, guidance from a higher perspective, and serenity. This card encourages optimism and a clear vision of possibilities."
         case .moon: return "The Moon represents intuition, illusions, and the subconscious mind. It highlights uncertainty, emotional flux, and the need to navigate hidden truths. This card encourages caution and listening to inner guidance."
         case .sun: return "The Sun symbolizes vitality, joy, and clarity. It reflects success, optimism, and positive energy. This card brings illumination, confidence, and the satisfaction of achievement."
         case .judgement: return "Judgement signifies awakening, self-reflection, and the evaluation of past actions. It calls for accountability, renewal, and embracing transformative insights. This card marks the opportunity for rebirth or major life decisions."
@@ -84,7 +81,6 @@ extension TarotCard {
         case .temperance: return "Temperance represents balance, compromise, and harmony in relationships. It encourages patience, adaptability, and blending different perspectives to foster a healthy connection."
         case .devil: return "The Devil in love warns of attachment, obsession, or unhealthy dependency. It highlights the need to recognize limiting patterns and regain freedom in emotional relationships."
         case .tower: return "The Tower indicates sudden change, upheaval, or revelations in love. It can signal disruptive events that ultimately bring clarity or lead to a necessary transformation in relationships."
-        case .star: return "The Star reflects hope, healing, and inspiration in love. It encourages faith, optimism, and emotional renewal, bringing a sense of calm and possibility to relationships."
         case .moon: return "The Moon points to uncertainty, illusions, or hidden emotions in love. It advises caution, awareness, and trusting intuition when navigating complex feelings."
         case .sun: return "The Sun symbolizes joy, clarity, and happiness in relationships. It indicates warmth, mutual satisfaction, and positive energy shared between partners."
         case .judgement: return "Judgement in love suggests awakening, self-reflection, and reconciliation. It may indicate making conscious choices, forgiveness, or embracing transformative emotional growth."
@@ -105,7 +101,6 @@ extension TarotCard {
         case .temperance: return "Temperance represents balance, adaptability, and harmonious collaboration in career matters. It encourages measured action, compromise, and integrating different skills or approaches."
         case .devil: return "The Devil warns against unhealthy attachments, materialism, or restrictive patterns at work. It suggests recognizing limitations, breaking free from dependency, and reclaiming autonomy in your professional life."
         case .tower: return "The Tower indicates sudden change, disruption, or upheaval in career. While challenging, it clears the way for new structures, opportunities, and necessary transformations."
-        case .star: return "The Star represents inspiration, hope, and renewed motivation in career. It encourages setting clear goals, trusting guidance, and remaining optimistic for future opportunities."
         case .moon: return "The Moon suggests uncertainty, hidden factors, or unclear paths in career matters. It emphasizes caution, reflection, and trusting intuition when navigating professional decisions."
         case .sun: return "The Sun symbolizes success, clarity, and recognition in career. It reflects positive outcomes, confidence, and the achievement of goals through skill and effort."
         case .judgement: return "Judgement in career points to evaluation, awakening, and making significant decisions. It encourages reflection on past actions and using insights to embrace professional growth or transformation."
@@ -126,7 +121,6 @@ extension TarotCard {
         case .temperance: return ["balance", "harmony", "moderation", "cooperation", "adaptability"]
         case .devil: return ["attachment", "temptation", "shadow", "dependency", "awareness"]
         case .tower: return ["upheaval", "revelation", "chaos", "transformation", "clarity"]
-        case .star: return ["hope", "inspiration", "renewal", "faith", "serenity"]
         case .moon: return ["intuition", "illusion", "uncertainty", "subconscious", "reflection"]
         case .sun: return ["joy", "clarity", "success", "vitality", "positivity"]
         case .judgement: return ["awakening", "reflection", "transformation", "accountability", "rebirth"]

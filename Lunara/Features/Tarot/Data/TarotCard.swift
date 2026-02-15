@@ -19,7 +19,6 @@ enum TarotCard: String, CaseIterable {
          temperance,
          devil,
          tower,
-         star,
          moon,
          sun,
          judgement,
