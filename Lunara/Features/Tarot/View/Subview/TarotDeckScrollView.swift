@@ -64,4 +64,5 @@ struct TarotDeckScrollView: View {
 
 #Preview {
     TarotTabView()
+        .environmentObject(AnimationState())
 }

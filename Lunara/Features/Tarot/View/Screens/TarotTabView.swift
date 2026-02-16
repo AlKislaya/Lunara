@@ -79,4 +79,5 @@ struct TarotTabView: View {
 
 #Preview {
     TarotTabView()
+        .environmentObject(AnimationState())
 }

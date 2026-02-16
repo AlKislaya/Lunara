@@ -8,21 +8,27 @@
 import SwiftUI
 
 struct LunaraMainView: View {
+    @EnvironmentObject var animationState: AnimationState
+    
     var body: some View {
-        TabView {
-            HoroscopeTabView()
-                .tabItem {
-                    Label("Horoscope", image: "PlanetIcon")
-                }
-            TarotTabView()
-                .tabItem {
-                    Label("Tarot", image: "TarotIcon")
-                }
+        ZStack {
+            TabView {
+                HoroscopeTabView()
+                    .tabItem {
+                        Label("Horoscope", image: "PlanetIcon")
+                    }
+                TarotTabView()
+                    .tabItem {
+                        Label("Tarot", image: "TarotIcon")
+                    }
+            }
         }
+        .disabled(animationState.isAnimatingBlockingUI)
         .tint(.brandPrimaryViolet5)
     }
 }
 
 #Preview {
     LunaraMainView()
+        .environmentObject(AnimationState())
 }

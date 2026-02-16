@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct LunaraApp: App {
+    @StateObject var animationState = AnimationState()
+    
     var body: some Scene {
         WindowGroup {
             LunaraMainView()
+                .environmentObject(animationState)
         }
     }
 }

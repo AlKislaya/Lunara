@@ -10,9 +10,11 @@ import SwiftUI
 struct DropSlotView: View {
     let backCardImage: String
     let text: String
+    @EnvironmentObject var animationState: AnimationState
     @Binding var itemsCollection: [TarotCard]
     @Binding var dragDropState: DragDropState
     @Binding var selectedCard: TarotCard?
+    
     @State var cardImage: String
     @State var scale: CGFloat = 1.1
     @State var opacity: CGFloat = 0
@@ -65,6 +67,7 @@ struct DropSlotView: View {
     private func cardAnimation(_ item: TarotCard) -> Task<(), any Error> {
         return Task {
             //block ui
+            animationState.isAnimatingBlockingUI = true
             //scale and change opacity to put card on the table
             withAnimation(Animation.easeIn(duration: 0.5)) {
                 scale = 1
@@ -99,6 +102,7 @@ struct DropSlotView: View {
             selectedCard = item
             
             //reset values
+            animationState.isAnimatingBlockingUI = false
             cardImage = backCardImage
             scale = 1.1
             opacity = 0
@@ -118,4 +122,5 @@ struct DropSlotView: View {
 
 #Preview {
     TarotTabView()
+        .environmentObject(AnimationState())
 }
