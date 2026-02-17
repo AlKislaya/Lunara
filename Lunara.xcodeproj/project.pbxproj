@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		A81D31222F3E8841005B791C /* Flow in Frameworks */ = {isa = PBXBuildFile; productRef = A81D31212F3E8841005B791C /* Flow */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		A8A30B8E2F2E5CB0008ABB4F /* Lunara.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lunara.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A81D31222F3E8841005B791C /* Flow in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,7 @@
 			);
 			name = Lunara;
 			packageProductDependencies = (
+				A81D31212F3E8841005B791C /* Flow */,
 			);
 			productName = Lunara;
 			productReference = A8A30B8E2F2E5CB0008ABB4F /* Lunara.app */;
@@ -107,6 +113,9 @@
 			);
 			mainGroup = A8A30B852F2E5CB0008ABB4F;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				A81D31202F3E8841005B791C /* XCRemoteSwiftPackageReference "SwiftUI-Flow" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A8A30B8F2F2E5CB0008ABB4F /* Products */;
 			projectDirPath = "";
@@ -359,6 +368,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A81D31202F3E8841005B791C /* XCRemoteSwiftPackageReference "SwiftUI-Flow" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tevelee/SwiftUI-Flow";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A81D31212F3E8841005B791C /* Flow */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A81D31202F3E8841005B791C /* XCRemoteSwiftPackageReference "SwiftUI-Flow" */;
+			productName = Flow;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A8A30B862F2E5CB0008ABB4F /* Project object */;
 }
