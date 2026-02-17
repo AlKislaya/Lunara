@@ -16,7 +16,7 @@ struct DropSlotView: View {
     @Binding var selectedCard: TarotCard?
     
     @State var cardImage: String
-    @State var scale: CGFloat = 1.1
+    @State var scale: CGFloat = 1
     @State var opacity: CGFloat = 0
     @State var rotation: CGFloat = 180
     
@@ -68,22 +68,17 @@ struct DropSlotView: View {
         return Task {
             //block ui
             animationState.isAnimatingBlockingUI = true
-            //scale and change opacity to put card on the table
-            withAnimation(Animation.easeIn(duration: 0.5)) {
-                scale = 1
-                opacity = 1
-            }
-            try await Task.sleep(nanoseconds: 500_000_000)
             
-            //scale and half rotate
+            //show, scale and half rotate
             withAnimation(Animation.easeIn(duration: 0.5)) {
                 scale = 1.1
+                opacity = 1
             }
-            try await Task.sleep(nanoseconds: 500_000_000)
+            try await Task.sleep(nanoseconds: 300_000_000)
             withAnimation(Animation.easeIn(duration: 0.5)) {
                 rotation = 90
             }
-            try await Task.sleep(nanoseconds: 500_000_000)
+            try await Task.sleep(nanoseconds: 700_000_000)
             
             //change image and finish rotation
             cardImage = item.imageAssetName
@@ -104,7 +99,7 @@ struct DropSlotView: View {
             //reset values
             animationState.isAnimatingBlockingUI = false
             cardImage = backCardImage
-            scale = 1.1
+            scale = 1
             opacity = 0
             rotation = 180
         }
