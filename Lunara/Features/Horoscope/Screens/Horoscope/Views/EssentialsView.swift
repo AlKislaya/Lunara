@@ -43,6 +43,10 @@ struct EssentialsView: View {
         var header: String
         var headerColor: Color
         var advices: [String]
+        private var advicesOutputString: String {
+            advices.isEmpty ? "No insights for today 👀"
+                            : advices.joined(separator: ", ")
+        }
         
         var body: some View {
             ZStack(alignment: .topLeading) {
@@ -51,7 +55,7 @@ struct EssentialsView: View {
                     Text(header)
                         .font(.chivoSubHeadingMediumBold)
                         .foregroundStyle(headerColor)
-                    Text(advices.joined(separator: ", "))
+                    Text(advicesOutputString)
                         .font(.chivoSubHeadingSmallBold)
                         .opacity(Opacity.standartText)
                 }
@@ -66,8 +70,8 @@ struct EssentialsView: View {
         BackgroundPrimaryViolet()
         ScrollView {
             EssentialsView(contentThemeText: MockData.horoscopeMockData.data.content.theme,
-                           strenghts: MockData.horoscopeMockData.data.content.strengths,
-                           weaknesses: MockData.horoscopeMockData.data.content.weaknesses)
+                           strenghts: MockData.horoscopeMockData.data.content.supportingInsights,
+                           weaknesses: MockData.horoscopeMockData.data.content.supportingInsights)
         }
     }
 }

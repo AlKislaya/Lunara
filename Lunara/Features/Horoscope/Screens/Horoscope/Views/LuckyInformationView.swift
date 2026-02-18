@@ -37,7 +37,7 @@ struct LuckyInformationView: View {
                     VStack {
                         Text("Time Interval")
                             .opacity(Opacity.standartText)
-                        Label(lucky.timeWindow, systemImage: "clock")
+                        Label(lucky.timeWindow.display, systemImage: "clock")
                     }
                 }
                 .frame(width: UIScreen.main.bounds.width * 0.5 - Padding.large)
