@@ -26,12 +26,15 @@ struct HoroscopeData: Decodable {
         
         struct Lucky: Decodable {
             var number: Int = 0
-            var timeWindow: String = ""
+            var timeWindow: TimeWindow = TimeWindow()
             var color: Color = Color()
             
             struct Color: Decodable {
                 var key: String = ""
                 var label: String = ""
+            }
+            struct TimeWindow: Decodable {
+                var display: String = ""
             }
             enum CodingKeys: String, CodingKey {
                 case number
@@ -44,15 +47,13 @@ struct HoroscopeData: Decodable {
             var text: String = ""
             var theme: String = ""
             var keywords: [String] = [String]()
-            var strengths: [String] = [String]()
-            var weaknesses: [String] = [String]()
+            var supportingInsights: [String] = [String]()
             
             enum CodingKeys: String, CodingKey {
                 case text
                 case theme
                 case keywords
-                case strengths = "do"
-                case weaknesses = "dont"
+                case supportingInsights = "supporting_insights"
             }
         }
     }

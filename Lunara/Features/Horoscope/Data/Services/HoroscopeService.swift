@@ -95,8 +95,8 @@ extension HoroscopeService {
     private struct UrlLibrary {
         static let baseUrl = "https://astro-api-1qnc.onrender.com"
         struct EndPoints {
-            static let horoscopeForSign = "/api/v1/horoscope/daily/sign"
-            static let horoscopePersonal = "/api/v1/horoscope/daily/personal"
+            static let horoscopeForSign = "/api/v2/horoscope/daily/sign"
+            static let horoscopePersonal = "/api/v2/horoscope/daily/personal"
         }
     }
     

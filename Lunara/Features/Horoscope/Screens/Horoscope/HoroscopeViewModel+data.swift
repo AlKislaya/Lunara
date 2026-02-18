@@ -35,10 +35,10 @@ extension HoroscopeViewModel {
     }
     
     public var strenghts: [String] {
-        return data?.content.strengths ?? [String]()
+        return data?.content.supportingInsights ?? [String]()
     }
     public var weaknesses: [String] {
-        return data?.content.weaknesses ?? [String]()
+        return data?.content.supportingInsights ?? [String]()
     }
     
     public var contentText: String {
