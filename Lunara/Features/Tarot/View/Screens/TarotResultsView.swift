@@ -51,7 +51,8 @@ struct TarotResultsView: View {
                             .padding(Padding.medium)
                             .padding(.top, Padding.medium) //adds medium padding to the current value
                     }
-                    .padding(.top, Padding.large)
+                    .padding(.horizontal, Padding.standart)
+                    .padding(.top, Padding.medium)
                 }
             }
         }
